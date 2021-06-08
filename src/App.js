@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import { PolicyList } from "./components/PolicyList";
+import { PolicyUpsert } from "./components/PolicyUpsert";
+import { Nav, Navbar } from "react-bootstrap";
+import { AppNavBar } from "./common/AppNavBar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AppNavBar />
+
+      <Switch>
+        <Route path="/create-policy">
+          <PolicyUpsert />
+        </Route>
+
+        <Route path="/list-policy">
+          <PolicyList />
+        </Route>
+
+        <Route exact path="/">
+          <PolicyList />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
