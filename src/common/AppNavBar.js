@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 
 export function AppNavBar() {
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar bg="info" expand="lg" variant="dark">
       <Navbar.Brand as={Link} to="/">
-        OTI APP
+        Home
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link as={Link} to="/create-policy">
-            Create Policy
+            <div className="text-light">Create Policy</div>
           </Nav.Link>
           <Nav.Link as={Link} to="/list-policy">
-            List Policy
+            <div className="text-light">Policy List</div>
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

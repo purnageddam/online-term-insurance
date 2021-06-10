@@ -9,7 +9,9 @@ import { AppNavBar } from "./common/AppNavBar";
 function App() {
   return (
     <Router>
-      <AppNavBar />
+      <div className="sticky-top">
+        <AppNavBar />
+      </div>
 
       <Switch>
         <Route path="/create-policy">
@@ -19,10 +21,20 @@ function App() {
         <Route path="/list-policy">
           <PolicyList />
         </Route>
-
-        <Route exact path="/">
-          <PolicyList />
-        </Route>
+        <div
+          className="row"
+          style={{
+            height: "100vh",
+            fontSize: "50px",
+            backgroundColor: "#d9ecd0",
+          }}
+        >
+          <div className="col d-flex justify-content-center align-items-center">
+            <Route exact path="/">
+              Welcome To Policy Module
+            </Route>
+          </div>
+        </div>
       </Switch>
     </Router>
   );

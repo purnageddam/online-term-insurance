@@ -18,6 +18,9 @@ export function PolicyModal() {
           <ListGroup.Item>
             Policy Name - {state.policy.refemp.policyName}
           </ListGroup.Item>
+          <ListGroup.Item>
+            Description - {state.policy.refemp.description}
+          </ListGroup.Item>
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>

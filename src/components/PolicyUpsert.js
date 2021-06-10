@@ -11,15 +11,19 @@ export function PolicyUpsert() {
   console.log(state);
 
   const [policyName, setPolicyName] = useState(state.policy.refemp.policyName);
+  const [description, setDescription] = useState(
+    state.policy.refemp.description
+  );
 
   const [successOperation, setSuccessOperation] = useState(false);
   const [errorOperation, setErrorOperation] = useState(false);
 
   const updatePolicyName = (e) => setPolicyName(e.target.value);
+  const updateDescription = (e) => setDescription(e.target.value);
 
   const addPolicy = (e) => {
     e.preventDefault();
-    console.log(policyName);
+    console.log(policyName, description);
     console.log(formEL);
     console.log(formEL.current.checkValidity());
 
@@ -35,22 +39,18 @@ export function PolicyUpsert() {
       }
     }
 
-    // THIS IS REDUX ACTION CALLING
     dispatch(
       createPolicyAction({
         policyName,
+        description,
       })
     );
 
-    // A1 sucess
     setSuccessOperation(true);
     setTimeout(() => setSuccessOperation(false), 5000);
 
-    // A2: navigate to another page
-    // history.push("/list-employee");
-
-    // reset the form
     setPolicyName("");
+    setDescription("");
   };
 
   const updatePolicy = () => {
@@ -58,57 +58,69 @@ export function PolicyUpsert() {
       updatePolicyAction({
         id: state.policy.refemp.id,
         policyName,
+        description,
       })
     );
 
-    // reset the form
     setPolicyName("");
+    setDescription("");
   };
 
   return (
-    <div className="row">
-      <div className="col-3 col-md-3 d-none d-md-block"></div>
-      <div className="col-12 col-md-6">
-        <h3 className="alert alert-secondary">
-          {state.policy.refemp.id ? "Update Policy" : "Create Policy"}
-        </h3>
+    <div style={{ height: "100vh", backgroundColor: "#d9ecd0" }}>
+      <div className="row">
+        <div className="col-3 col-md-3 d-none d-md-block"></div>
+        <div className="col-12 col-md-6">
+          <h3 className="alert alert-primary text-center">
+            {state.policy.refemp.id ? "Update Policy" : "Create Policy"}
+          </h3>
 
-        {/** BELOW THESE TWO TAGS MUST BE CONDITIOANL */}
-        {successOperation && (
-          <div className="alert alert-success">Opeation Success</div>
-        )}
+          {successOperation && (
+            <div className="alert alert-success">Opeation Success</div>
+          )}
 
-        <form ref={formEL} class="needs-validation" novalidate>
-          <div className="mb-1">
-            <input
-              type="text"
-              value={policyName}
-              onChange={(e) => updatePolicyName(e)}
-              className="form-control"
-              placeholder="Enter policy name"
-            />
-          </div>
-
-          <div className="mb-1">
-            {state.policy.refemp.id ? (
+          <form ref={formEL} class="needs-validation" novalidate>
+            <div className="mb-1">
               <input
-                type="button"
-                className="btn btn-secondary w-100"
-                value="Update Policy"
-                onClick={() => updatePolicy()}
+                type="text"
+                value={policyName}
+                onChange={(e) => updatePolicyName(e)}
+                className="form-control"
+                placeholder="Enter policy name"
               />
-            ) : (
+            </div>
+
+            <div className="mb-1">
               <input
-                type="button"
-                className="btn btn-secondary w-100"
-                value="Add Policy"
-                onClick={(e) => addPolicy(e)}
+                type="text"
+                value={description}
+                onChange={(e) => updateDescription(e)}
+                className="form-control"
+                placeholder="Description"
               />
-            )}
-          </div>
-        </form>
+            </div>
+
+            <div className="mb-1">
+              {state.policy.refemp.id ? (
+                <input
+                  type="button"
+                  className="btn btn-warning w-100"
+                  value="Update Policy"
+                  onClick={() => updatePolicy()}
+                />
+              ) : (
+                <input
+                  type="button"
+                  className="btn btn-warning w-100"
+                  value="Add Policy"
+                  onClick={(e) => addPolicy(e)}
+                />
+              )}
+            </div>
+          </form>
+        </div>
+        <div className="col-3 col-md-3  d-none d-md-block"></div>
       </div>
-      <div className="col-3 col-md-3  d-none d-md-block"></div>
     </div>
   );
 }
